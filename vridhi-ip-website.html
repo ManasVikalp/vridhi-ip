@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vridhi IP – Intellectual Property Law</title>
+  <meta name="description" content="Intellectual property law firm website prototype – patents, trademarks, copyrights, IP litigation, strategy." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink-900:#0d2036; /* deep navy */
+      --ink-800:#102a44;
+      --ink-700:#163553;
+      --ink-600:#264a6f;
+      --ink-400:#5b7ba2;
+      --text-900:#0e1726;
+      --slate-700:#334155;
+      --slate-500:#64748b;
+      --slate-300:#cbd5e1;
+      --slate-200:#e2e8f0;
+      --slate-100:#f1f5f9;
+      --cream-50:#fbf9f3; /* off white */
+      --gold-500:#d4a017; /* accent */
+      --gold-600:#b88a14;
+      --success-500:#1fb981;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --shadow-lg: 0 25px 60px rgba(0,0,0,.15);
+    }
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:var(--text-900); background:linear-gradient(180deg,var(--cream-50),#fff);
+    }
+    .container{width:min(1200px,92%); margin-inline:auto}
+    /* Skip link */
+    .skip-link{position:absolute; left:-999px; top:auto; width:1px; height:1px; overflow:hidden}
+    .skip-link:focus{left:1rem; top:1rem; width:auto; height:auto; background:#fff; padding:.75rem 1rem; border-radius:12px; box-shadow:var(--shadow)}
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50; background:rgba(13,32,54,.85); backdrop-filter: blur(10px);
+      border-bottom:1px solid rgba(255,255,255,.06);
+      transition: all .35s ease;
+    }
+    header.scrolled{background:rgba(13,32,54,.96); box-shadow:0 8px 24px rgba(0,0,0,.18)}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:.9rem 0}
+    .brand{display:flex; align-items:center; gap:.75rem; color:#fff; text-decoration:none}
+    .brand-mark{
+      width:40px; height:40px; border-radius:12px; display:grid; place-items:center; font-weight:800; letter-spacing:.5px;
+      color:#111; background:linear-gradient(135deg,#ffd86f,var(--gold-500));
+      box-shadow:inset 0 0 0 1px rgba(0,0,0,.1), 0 6px 18px rgba(0,0,0,.25);
+    }
+    .brand span{font-weight:700; font-size:1.05rem}
+    nav ul{display:flex; list-style:none; gap:1.2rem; margin:0; padding:0}
+    nav a{color:#e5eefb; text-decoration:none; font-weight:500; opacity:.9}
+    nav a:hover{opacity:1}
+    .nav-actions{display:flex; gap:.75rem}
+    .btn{appearance:none; border:0; padding:.75rem 1rem; border-radius:12px; font-weight:600; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:.5rem}
+    .btn.gold{background:var(--gold-500); color:#111}
+    .btn.ghost{background:transparent; color:#fff; border:1px solid rgba(255,255,255,.18)}
+    .btn.gold:hover{transform:translateY(-1px); box-shadow:0 10px 25px rgba(212,160,23,.35)}
+    .btn.ghost:hover{background:rgba(255,255,255,.06)}
+
+    .hamburger{display:none; width:42px; height:42px; border-radius:12px; border:1px solid rgba(255,255,255,.18); background:transparent; color:#fff}
+    .hamburger svg{width:22px; height:22px}
+
+    /* Mobile menu */
+    .mobile-panel{display:none; background:var(--ink-900); border-top:1px solid rgba(255,255,255,.06)}
+    .mobile-panel.open{display:block}
+    .mobile-panel a{color:#e5eefb; display:block; padding:1rem 0; border-bottom:1px dashed rgba(255,255,255,.06); text-decoration:none}
+
+    /* Hero */
+    .hero{position:relative; overflow:hidden; background: radial-gradient(1200px 600px at 10% -10%, rgba(255,216,111,.08), transparent),
+                                radial-gradient(900px 600px at 90% -30%, rgba(91,123,162,.12), transparent),
+                                linear-gradient(180deg,var(--ink-900),var(--ink-800));
+      color:#eff6ff;}
+    .hero .container{display:grid; grid-template-columns: 1.2fr 1fr; gap:min(6vw,64px); align-items:center; padding: clamp(2rem, 4vw, 4rem) 0}
+
+    .eyebrow{display:inline-flex; align-items:center; gap:.5rem; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.1); padding:.35rem .6rem; border-radius:999px; font-size:.85rem}
+    .eyebrow svg{width:16px; height:16px}
+    h1{font-family: "Playfair Display", Georgia, serif; font-weight:700; line-height:1.05; font-size:clamp(2rem, 3.6vw + .5rem, 3.3rem); margin:.75rem 0 1rem}
+    .lead{font-size:clamp(1rem, 1.2vw + .4rem, 1.2rem); color:#dbe5f5; max-width:58ch}
+    .hero-cta{display:flex; gap:.8rem; flex-wrap:wrap; margin-top:1.2rem}
+    .hero-cta .btn{padding:.9rem 1.1rem}
+    .trust{display:flex; align-items:center; gap:1.25rem; margin-top:1.25rem; color:#bcd3f7; font-size:.95rem}
+    .trust .dot{width:8px; height:8px; border-radius:50%; background:var(--success-500)}
+
+    /* Hero Illustration */
+    .illustration{position:relative; aspect-ratio: 4 / 3; background:linear-gradient(180deg,#fffdf7,#f4efe3); border-radius:22px; box-shadow:var(--shadow-lg); overflow:hidden}
+    .node{position:absolute; width:12px; height:12px; background:var(--ink-600); border-radius:999px; box-shadow:0 4px 10px rgba(0,0,0,.2)}
+    .node.gold{background:var(--gold-500)}
+    .link{position:absolute; height:2px; background:rgba(22,53,83,.25); transform-origin:left;}
+    .lock{position:absolute; inset:auto 12% 14% 12%; background:#fff; border-radius:18px; box-shadow:0 10px 30px rgba(0,0,0,.15); display:grid; place-items:center; padding:14px}
+    .lock svg{width:92px; height:92px}
+    .float{animation: float 6s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)}}
+
+    /* Sections */
+    section{padding: clamp(2.5rem, 6vw, 5rem) 0}
+    .section-title{font-family:"Playfair Display",Georgia,serif; font-weight:700; font-size:clamp(1.6rem,2.2vw + .4rem,2.2rem); margin:0 0 .6rem}
+    .muted{color:var(--slate-500)}
+
+    /* Practice Areas */
+    .areas{display:grid; grid-template-columns:repeat(5,1fr); gap:1rem}
+    .card{background:#fff; border:1px solid var(--slate-200); border-radius:16px; padding:1rem; box-shadow:var(--shadow); transition:transform .25s ease, box-shadow .25s ease}
+    .card:hover{transform:translateY(-4px); box-shadow:0 18px 40px rgba(0,0,0,.12)}
+    .card .icon{width:36px; height:36px; display:grid; place-items:center; border-radius:10px; background:linear-gradient(135deg,#fff3c4, #ffe59a)}
+    .card h3{margin:.6rem 0 .25rem; font-size:1.05rem}
+    .card p{margin:0; font-size:.95rem; color:var(--slate-600)}
+
+    /* Stats */
+    .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-top:1.2rem}
+    .stat{background:#0f2137; color:#e6edf7; border-radius:16px; padding:1.2rem 1rem; position:relative; overflow:hidden}
+    .stat strong{font-size:clamp(1.6rem,2vw + .6rem,2.2rem); font-weight:800}
+    .stat span{display:block; color:#b5c8e6}
+    .stat:after{content:""; position:absolute; inset:auto -40% -40% auto; width:160px; height:160px; background:radial-gradient(closest-side, rgba(212,160,23,.15), transparent); border-radius:50%}
+
+    /* Attorneys */
+    .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:1rem}
+    .person{background:#fff; border:1px solid var(--slate-200); border-radius:18px; overflow:hidden; box-shadow:var(--shadow)}
+    .avatar{aspect-ratio: 4 / 3; background:linear-gradient(135deg,#dfe8f7,#f8f2de)}
+    .person .meta{padding:1rem}
+    .person h4{margin:.1rem 0 .25rem}
+    .person .role{color:var(--slate-500); font-size:.95rem}
+
+    /* Testimonials */
+    .testimonials{background:linear-gradient(180deg,#fff,#f7f5ee)}
+    .quote{background:#fff; border:1px solid var(--slate-200); border-radius:16px; padding:1.25rem; box-shadow:var(--shadow)}
+    .quotes{display:grid; grid-template-columns:1fr; gap:1rem}
+
+    /* CTA */
+    .cta{background:linear-gradient(180deg,var(--ink-900),var(--ink-700)); color:#e8f0fb; border-radius:24px; padding: clamp(1.5rem, 3vw, 2.25rem)}
+    .cta .row{display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap}
+
+    /* Footer */
+    footer{background:#0b1626; color:#bcd3f7}
+    .footer-grid{display:grid; grid-template-columns: 2fr 1fr 1fr; gap:1.2rem}
+    .footer-grid a{color:#d8e7ff; text-decoration:none; opacity:.9}
+    .footer-grid a:hover{opacity:1; text-decoration:underline}
+
+    /* Reveal on scroll */
+    .reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease}
+    .reveal.visible{opacity:1; transform:translateY(0)}
+
+    /* Responsive */
+    @media (max-width: 1024px){
+      .areas{grid-template-columns:repeat(3,1fr)}
+      .grid-3{grid-template-columns:repeat(2,1fr)}
+      .hero .container{grid-template-columns:1fr}
+    }
+    @media (max-width: 720px){
+      nav ul{display:none}
+      .hamburger{display:inline-grid; place-items:center}
+      .areas{grid-template-columns:repeat(2,1fr)}
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .grid-3{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr}
+      .lock svg{width:76px; height:76px}
+    }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none !important; transition:none !important}
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header id="site-header">
+    <div class="container nav" role="navigation" aria-label="Main">
+      <a class="brand" href="#">
+        <div class="brand-mark" aria-hidden="true">IP</div>
+        <span>Vridhi IP Legal</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul id="primary-nav">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#industries">Industries</a></li>
+          <li><a href="#attorneys">Attorneys</a></li>
+          <li><a href="#insights">Insights</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn ghost" href="#contact">Email Us</a>
+        <a class="btn gold" href="#contact">Book Free Consult</a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+    <div class="container mobile-panel" id="mobile-panel" aria-hidden="true">
+      <a href="#services">Services</a>
+      <a href="#industries">Industries</a>
+      <a href="#attorneys">Attorneys</a>
+      <a href="#insights">Insights</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="container">
+        <div>
+          <div class="eyebrow reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20l9-5-9-5-9 5 9 5z"/><path d="M12 12l9-5-9-5-9 5 9 5z"/></svg> IP Law • Patents • Trademarks • Copyrights</div>
+          <h1 class="reveal">Intellectual Property. <br/>Defended. Delivered.</h1>
+          <p class="lead reveal">Strategic counsel across patents, trademarks, copyrights, trade secrets and IP litigation. We turn innovation into defensible advantage.</p>
+          <div class="hero-cta reveal">
+            <a class="btn gold" href="#contact">Book Free Consult</a>
+            <a class="btn ghost" href="#services">Explore Services</a>
+          </div>
+          <div class="trust reveal"><span class="dot" aria-hidden="true"></span> 1000+ filings • 500+ registrations • 200+ litigation successes</div>
+        </div>
+        <div class="illustration float reveal" aria-hidden="true">
+          <!-- network nodes -->
+          <span class="node" style="left:10%; top:20%"></span>
+          <span class="node gold" style="left:30%; top:12%"></span>
+          <span class="node" style="left:55%; top:18%"></span>
+          <span class="node gold" style="left:78%; top:30%"></span>
+          <span class="node" style="left:20%; top:60%"></span>
+          <span class="node" style="left:72%; top:65%"></span>
+          <span class="node gold" style="left:40%; top:74%"></span>
+
+          <!-- links -->
+          <div class="link" style="left:10%; top:20%; width:30%; transform:rotate(10deg)"></div>
+          <div class="link" style="left:30%; top:12%; width:25%; transform:rotate(15deg)"></div>
+          <div class="link" style="left:55%; top:18%; width:25%; transform:rotate(25deg)"></div>
+          <div class="link" style="left:20%; top:60%; width:52%; transform:rotate(-8deg)"></div>
+          <div class="link" style="left:40%; top:74%; width:32%; transform:rotate(-14deg)"></div>
+
+          <div class="lock">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="10" y="26" width="44" height="30" rx="8" fill="#ffe8a3" stroke="#cfa218" stroke-width="2"/>
+              <path d="M20 26v-6a12 12 0 0 1 24 0v6" fill="#fff" stroke="#1b3a5a" stroke-width="3"/>
+              <circle cx="32" cy="42" r="4" fill="#1b3a5a"/>
+              <rect x="30.5" y="42" width="3" height="8" rx="1.5" fill="#1b3a5a"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="container">
+      <h2 class="section-title reveal">Practice Areas</h2>
+      <p class="muted reveal">Full-spectrum IP services to safeguard, commercialize, and enforce your innovations.</p>
+      <div class="areas" role="list">
+        <article class="card reveal" role="listitem">
+          <div class="icon" aria-hidden="true">📄</div>
+          <h3>Patents</h3>
+          <p>Drafting, prosecution, PCT filings, office actions, FTO &amp; invalidity.</p>
+        </article>
+        <article class="card reveal" role="listitem">
+          <div class="icon" aria-hidden="true">™️</div>
+          <h3>Trademarks</h3>
+          <p>Search, filing, oppositions, brand strategy, customs recordals.</p>
+        </article>
+        <article class="card reveal" role="listitem">
+          <div class="icon" aria-hidden="true">©️</div>
+          <h3>Copyrights</h3>
+          <p>Registrations, licensing, assignments, infringement actions.</p>
+        </article>
+        <article class="card reveal" role="listitem">
+          <div class="icon" aria-hidden="true">🏛️</div>
+          <h3>IP Litigation</h3>
+          <p>Strategy, evidence, injunctions, enforcement &amp; anti-counterfeiting.</p>
+        </article>
+        <article class="card reveal" role="listitem">
+          <div class="icon" aria-hidden="true">♟️</div>
+          <h3>IP Strategy</h3>
+          <p>Portfolio audits, valuation, licensing, due diligence &amp; deals.</p>
+        </article>
+      </div>
+
+      <div class="stats">
+        <div class="stat reveal"><strong data-count="1000">0</strong><span>+ Applications Filed</span></div>
+        <div class="stat reveal"><strong data-count="500">0</strong><span>+ Registrations</span></div>
+        <div class="stat reveal"><strong data-count="200">0</strong><span>+ Litigation Wins</span></div>
+        <div class="stat reveal"><strong data-count="35">0</strong><span>Industries Served</span></div>
+      </div>
+    </section>
+
+    <section id="industries" class="container">
+      <h2 class="section-title reveal">Industries We Serve</h2>
+      <p class="muted reveal">From software and semiconductors to biotech, FMCG, media and manufacturing.</p>
+      <div class="areas" role="list">
+        <article class="card reveal" role="listitem"><div class="icon">💻</div><h3>Software &amp; AI</h3><p>Patenting algorithms, data &amp; models; open-source &amp; compliance.</p></article>
+        <article class="card reveal" role="listitem"><div class="icon">🧬</div><h3>Biotech &amp; Pharma</h3><p>Sequences, formulations, process claims &amp; regulatory pathways.</p></article>
+        <article class="card reveal" role="listitem"><div class="icon">⚙️</div><h3>Manufacturing</h3><p>Designs, mechanical systems, automation &amp; utility models.</p></article>
+        <article class="card reveal" role="listitem"><div class="icon">🎮</div><h3>Gaming &amp; Media</h3><p>Brand, content, licensing, anti-piracy &amp; take-downs.</p></article>
+        <article class="card reveal" role="listitem"><div class="icon">🔋</div><h3>Energy &amp; EV</h3><p>Storage, power electronics, smart grid &amp; clean-tech.</p></article>
+      </div>
+    </section>
+
+    <section id="attorneys" class="container">
+      <h2 class="section-title reveal">Attorneys</h2>
+      <p class="muted reveal">A multidisciplinary team of patent agents, litigators, and technologists.</p>
+      <div class="grid-3">
+        <article class="person reveal">
+          <div class="avatar"></div>
+          <div class="meta">
+            <h4>Adv. A. Sharma</h4>
+            <div class="role">Partner • Patent Litigation</div>
+            <p class="muted">15+ yrs in tech &amp; life sciences disputes; ex-Intl firm.</p>
+          </div>
+        </article>
+        <article class="person reveal">
+          <div class="avatar"></div>
+          <div class="meta">
+            <h4>Adv. N. Rao</h4>
+            <div class="role">Senior Associate • Trademarks</div>
+            <p class="muted">Brand enforcement, oppositions, customs and domain disputes.</p>
+          </div>
+        </article>
+        <article class="person reveal">
+          <div class="avatar"></div>
+          <div class="meta">
+            <h4>Adv. M. Iyer</h4>
+            <div class="role">Patent Agent • Electronics &amp; AI</div>
+            <p class="muted">Semiconductors, ML systems, embedded &amp; comms protocols.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="insights" class="testimonials">
+      <div class="container">
+        <h2 class="section-title reveal">Client Testimonials</h2>
+        <p class="muted reveal">What innovators say about partnering with us.</p>
+        <div class="quotes" id="slider" aria-live="polite">
+          <blockquote class="quote reveal">“Vridhi IP secured patents for our core AI stack and led a swift injunction against a copycat. Meticulous and battle-ready.” — CTO, SaaS Unicorn</blockquote>
+          <blockquote class="quote reveal">“Their trademark strategy scaled with us across 40+ markets. Practical, responsive, and business-minded.” — Head of Brand, D2C</blockquote>
+          <blockquote class="quote reveal">“We closed our first licensing deal in 6 weeks with their audit and negotiation support.” — Founder, Cleantech</blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="container">
+      <div class="cta reveal">
+        <div class="row">
+          <div>
+            <h2 class="section-title" style="margin:0">Ready to protect what you’ve built?</h2>
+            <p class="muted" style="color:#cfe1ff">Tell us about your invention or brand. We’ll respond within one business day.</p>
+          </div>
+          <div>
+            <a class="btn gold" href="mailto:hello@vridhi-ip.example">Email hello@vridhi-ip.example</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="padding:2rem 0">
+      <div class="footer-grid">
+        <div>
+          <div class="brand" style="color:#fff; text-decoration:none"><div class="brand-mark">IP</div><span>Vridhi IP Legal</span></div>
+          <p class="muted" style="color:#9fb7db; max-width:50ch">Strategic IP counsel for startups, scale-ups and enterprises across India and worldwide.</p>
+        </div>
+        <div>
+          <strong>Explore</strong>
+          <ul style="list-style:none; padding:0; margin:.5rem 0 0; display:grid; gap:.4rem">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#attorneys">Team</a></li>
+            <li><a href="#insights">Testimonials</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <strong>Contact</strong>
+          <ul style="list-style:none; padding:0; margin:.5rem 0 0; display:grid; gap:.4rem">
+            <li><a href="mailto:hello@vridhi-ip.example">hello@vridhi-ip.example</a></li>
+            <li><a href="tel:+91123456789">+91 12345 6789</a></li>
+            <li>Mon–Fri, 9:30–18:30 IST</li>
+          </ul>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; gap:1rem; align-items:center; border-top:1px solid rgba(255,255,255,.08); margin-top:1.25rem; padding-top:1.25rem">
+        <small>© <span id="year"></span> Vridhi IP Legal. All rights reserved.</small>
+        <small><a href="#" style="color:#d8e7ff">Privacy</a> • <a href="#" style="color:#d8e7ff">Terms</a></small>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Header shrink on scroll
+    const header = document.getElementById('site-header');
+    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 8);
+    document.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobilePanel = document.getElementById('mobile-panel');
+    hamburger?.addEventListener('click', () => {
+      const open = mobilePanel.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', String(open));
+      mobilePanel.setAttribute('aria-hidden', String(!open));
+    });
+
+    // Smooth anchor collapse for mobile
+    mobilePanel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobilePanel.classList.remove('open');
+      hamburger.setAttribute('aria-expanded','false');
+      mobilePanel.setAttribute('aria-hidden','true');
+    }));
+
+    // Reveal on scroll using IntersectionObserver
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {threshold: .18});
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Count-up stats when visible
+    const counters = document.querySelectorAll('[data-count]');
+    const tick = (el, to) => {
+      const duration = 1600, start = performance.now();
+      const from = 0;
+      function animate(now){
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+        el.textContent = Math.round(from + (to - from) * eased);
+        if(p < 1) requestAnimationFrame(animate);
+      }
+      requestAnimationFrame(animate);
+    };
+    const countersObs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          const el = e.target; tick(el, Number(el.dataset.count));
+          countersObs.unobserve(el);
+        }
+      })
+    }, {threshold: .5});
+    counters.forEach(c => countersObs.observe(c));
+
+    // Simple testimonial slider (auto-rotate)
+    const slides = Array.from(document.querySelectorAll('#slider .quote'));
+    let idx = 0; setInterval(()=>{
+      slides.forEach((s,i)=>{ s.style.opacity = i === idx ? 1 : .35; s.style.transform = i === idx ? 'translateY(0)' : 'translateY(6px)'; });
+      idx = (idx + 1) % slides.length;
+    }, 3200);
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
